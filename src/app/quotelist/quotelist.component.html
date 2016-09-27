@@ -1,0 +1,15 @@
+<table class="ui basic table" id="quoteTable">
+	  <thead>
+	    <tr><th>Id</th>
+	    <th>Author</th>
+	    <th>Quote</th>
+	  </tr></thead>
+	  <tbody>
+	    <tr *ngFor="let quote of quotes | async">
+	      <td>{{quote.$key}}</td>
+	      <td>{{quote.author}}</td>
+	      <td>{{quote.quote}}</td>
+	    </tr>
+	    
+	  </tbody>
+	</table>
