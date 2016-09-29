@@ -9,18 +9,21 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService : LoginService, private router : Router) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
+    console.log("Authenticated is.. " + this.loginService.isAuthenticated);
     if (this.loginService.isAuthenticated) {
       this.router.navigate(['/quotes']);
-    }
-    this.loginService.login().then( (authState) => {
-      if (authState && authState.uid) {
-        console.log("Login is WIN for " + authState.uid);
-        this.router.navigate(['/quotes']);
-      } 
-    });
+
+    } else {
+      this.loginService.login().then((authState) => {
+        if (authState && authState.uid) {
+          console.log("Login is WIN for " + authState.uid);
+          this.router.navigate(['/quotes']);
+        }
+      })
+    };
   }
 
 }

@@ -3,9 +3,9 @@
     <a class="toc item">
       <i class="sidebar icon"></i>
     </a>
-    <a class="active item">Random</a>
+    <a class="item" routerLink='/quotes' routerLinkActive="active">Random</a>
     <a class="item">Add</a>
-    <a class="item">Share</a>
+    <a class="item" routerLink='/login'>Faux Login</a>
     <a class="item">About</a>
     <div class="right item">
       <a class="ui inverted button" *ngIf='!loginService.isAuthenticated'>Log in</a>
