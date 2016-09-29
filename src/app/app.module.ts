@@ -4,12 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import * as firebase from 'firebase';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+
+import { routing,
+         appRoutingProviders } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { QuoteComponent } from './quote/quote.component';
 import { MenuComponent } from './menu/menu.component';
 import { QuotelistComponent } from './quotelist/quotelist.component';
+
+import { LoginService } from './login.service';
+import { LoginComponent } from './login/login.component';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyAtkDOebowUCsSF8efOL_0yup1DKCCan00",
@@ -19,21 +25,29 @@ export const firebaseConfig = {
     messagingSenderId: "922026910241"
   };
 
+export const firebaseAuthConfig = {
+  provider: AuthProviders.Google,
+  method: AuthMethods.Popup
+}
+
+
 @NgModule({
   declarations: [
     AppComponent,
     QuoteComponent,
     MenuComponent,
-    QuotelistComponent
+    QuotelistComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
+    routing
 
   ],
-  providers: [],
+  providers: [LoginService, appRoutingProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

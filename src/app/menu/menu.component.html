@@ -8,7 +8,8 @@
     <a class="item">Share</a>
     <a class="item">About</a>
     <div class="right item">
-      <a class="ui inverted button">Log in</a>
+      <a class="ui inverted button" *ngIf='!loginService.isAuthenticated'>Log in</a>
+      <a class="item" *ngIf='!loginService.isAuthenticated'>{{ loginService.userId }}</a>
       <a class="ui inverted button">Sign Up</a>
     </div>
   </div>
