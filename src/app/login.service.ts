@@ -8,25 +8,22 @@ import 'rxjs/add/operator/toPromise';
 export class LoginService {
 
   public isAuthenticated = false;
-  public displayName : string = '';
-  public photoUrl : string = '';
+  public displayName: string = '';
+  public photoUrl: string = '';
 
   constructor(private af: AngularFire) {
     console.log("Sparking a new LoginService");
   }
 
 
-  private storeAuthInfo(authState : FirebaseAuthState) : FirebaseAuthState {
+  private storeAuthInfo(authState: FirebaseAuthState): FirebaseAuthState {
     if (authState) {
-      console.log(authState);
       this.displayName = authState.auth.displayName;
       this.photoUrl = authState.auth.photoURL;
       this.isAuthenticated = true;
-      console.log("Grabbing at ", authState);
       if (authState.google) {
         localStorage.setItem('idToken', (authState.google as any).idToken);
         localStorage.setItem('accessToken', (authState.google as any).accessToken);
-        console.log("Grabbed something from ", authState);
       }
     }
     return authState;
@@ -41,24 +38,19 @@ export class LoginService {
 
       const authConfig = {
         method: AuthMethods.OAuthToken,
-        provider: AuthProviders.Google,
-        // scope: ['email']
+        provider: AuthProviders.Google
       };
       const credential = firebase.auth.GoogleAuthProvider.credential(idToken, accessToken);
-      console.log("Found cached access token to try!!!", credential);
       return this.af.auth.login(credential, authConfig).then((authState) => {
-        console.log("Cached token is win!!!!");
+        console.log("Successful Token-based Login");
         return this.storeAuthInfo(authState);
       }).catch((err) => {
         console.log("Error with auth token: " + err, " Clearing cached token..");
         localStorage.setItem('idToken', '');
         localStorage.setItem('accessToken', '');
-      }
-
-        );
+      });
     } else {
       // fall through to popup auth
-
       console.log("Falling through to popup auth");
 
       return this.af.auth.login({
@@ -73,7 +65,7 @@ export class LoginService {
 
   logout() {
     this.isAuthenticated = false;
-    // userId = displayName = photoUrl = '';
+    this.displayName = this.photoUrl = '';
     this.af.auth.logout();
   }
 

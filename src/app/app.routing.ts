@@ -14,9 +14,6 @@ const appRoutes: Routes = [
 
 export const appRoutingProviders: any[] = [
     LoggedInGuard
-    // {provide: LoggedInGuard, useClass: LoggedInGuard }
-    // LoginService, {provide: LocationStrategy, useClass: HashLocationStrategy},
-    // LoggedInGuard, {provide: LocationStrategy, useClass: HashLocationStrategy}
 ];
 
 export const routing : ModuleWithProviders = RouterModule.forRoot(appRoutes); 

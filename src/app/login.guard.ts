@@ -8,6 +8,9 @@ export class LoggedInGuard implements CanActivate {
     constructor(private loginService: LoginService, private router: Router) { }
 
     canActivate(): boolean {
+
+        console.log("Guard function has been invoked");
+        
         let authenticated = false;
 
         if (this.loginService.isAuthenticated) {
