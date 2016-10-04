@@ -51,11 +51,10 @@ export class LoginService {
       });
     } else {
       // fall through to popup auth
-      console.log("Falling through to popup auth");
-
       return this.af.auth.login({
         method: AuthMethods.Popup
       }).then((authState) => {
+        console.log("Successful OAuth-based Login");
         return this.storeAuthInfo(authState);
       }).catch((err) => {
         console.log(err);
