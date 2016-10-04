@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  private errorDuringLogin = false;
+
   constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
@@ -21,6 +23,8 @@ export class LoginComponent implements OnInit {
         if (authState && authState.uid) {
           console.log("Login successful for " + authState.auth.displayName);
           this.router.navigate(['/quotes']);
+        } else {
+          this.errorDuringLogin = true;
         }
       })
     };
