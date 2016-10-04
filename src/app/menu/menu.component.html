@@ -5,11 +5,14 @@
     </a>
     <a class="item" routerLink='/quotes' routerLinkActive="active">Random</a>
     <a class="item">Add</a>
-    <a class="item" routerLink='/login'>Faux Login</a>
-    <a class="item">About</a>
-    <div class="right item">
-      <a class="ui inverted button" *ngIf='!loginService.isAuthenticated'>Log in</a>
-      <a class="item" *ngIf='!loginService.isAuthenticated'>{{ loginService.userId }}</a>
+    <div class="right item" *ngIf='loginService.isAuthenticated'>
+      <a class="item" >
+          <img class="ui avatar image" [src]='loginService.photoUrl'>
+          <span>{{ loginService.displayName }} </span>
+        </a>
+    </div>
+    <div class="right item" *ngIf='!loginService.isAuthenticated'>
+      <a class="ui inverted button">Log in</a>
       <a class="ui inverted button">Sign Up</a>
     </div>
   </div>
